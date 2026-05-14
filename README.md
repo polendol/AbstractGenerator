@@ -1,0 +1,53 @@
+# AI Abstract Genrator
+
+## Description
+AI Abstract Generator aims to facilitate abstract generation for researchers who have to produce several variations of 
+the same abstract (e.g. the same study presented in different events). 
+
+Given the specificity of academic abstracts, 1B parameter, 4-bit quantized version of Meta's Llama 3.2 Instruct model 
+was fine-tuned using LoRa PEFT with gfissore/arxiv-abstracts-2021 abstracts dataset which maps academic papers titles to
+its abstracts. Unsloth was used to fine-tune the model on a local GPU. Reported training los was of 2.254, showing that the model was in fact learnign and not only memorising the title-abstarct parinings. 
+
+In order to personalize the model, the fine-tuned model was once again trained using the same methodology, but this time
+with a local .jsonl database of researcher's previously submitted titles, abstract, and corresponding keywords. Keywords are an innovation in the PEFT as compared to the oringinal model fine-tuning and are necessary for the inclusion of this element in the final program. Therefore, the final model is specifically fine-tuned to create personalized abstracts imitating the user's previous work. This model is available through AbstractGenerator.py. 
+
+AbstractGenerator.py uses gradio interface where user can introduce the title of the paper, as well as the keywords that
+must be included in the abstract. 
+
+*Test_FT_model.py file is a test file for the first fine-tuning of the model. It is not to be used as abstract generator. 
+
+## Requirements
+- Python 3.8+
+- gradio
+- torch
+- unsloth
+- "unsloth/Llama-3.2-1B-Instruct-bnb-4bit"
+- Model: `unsloth/Llama-3.2-1B-Instruct-bnb-4bit-lora_private_abstracts`
+
+## Installation
+pip install -r requirements.txt
+
+
+## Usage
+AbstractGenerator.py
+
+
+Enter the academic paper title
+Enter the keywords that must be included in the abstract
+
+## Output
+Generates an academic abstract related to the introduced titles which includes all keywords. 
+
+## How It Works
+1. Fine-tuned model is loaded and optimized for a faster inference
+2. Takes a paper title and keywords as input
+3. Builds a prompt asking the AI to write an academic abstract
+4. Sends it to the model as a conversation (system role + user role)
+5. The model generates the abstract and returns it as text
+6. Creates a simple UI with gradio
+7. Launches the app locally at http://127.0.0.1:7860
+
+## Notes
+- the new abstract size is limited to 512 tokens to imitate the standard length of an academic abstract
+- the temperature si set to 0.6 to allow for some creativity and avoid repetition, as academic texts tend to be highly formulaic
+- repetition penalty applied between 1.1. and 1.2 to avoid bad grammar and strange synonyms

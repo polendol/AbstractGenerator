@@ -40,7 +40,7 @@ def generate_abstract(title, keywords):
 
 # Gradio UI
 with gr.Blocks(title="Academic Abstract Generator") as demo:
-    gr.Markdown("# 🎓 AI Research Abstract Generator")
+    gr.Markdown("AI Research Abstract Generator")
     with gr.Row():
         with gr.Column():
             title_input = gr.Textbox(label="Research Title", placeholder="Enter your paper title...")
@@ -51,6 +51,7 @@ with gr.Blocks(title="Academic Abstract Generator") as demo:
 
     submit_btn.click(fn=generate_abstract, inputs=[title_input, keywords_input], outputs=output_text)
 
+
 # Launch (server_name="0.0.0.0" is required for Docker)
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0", server_port=7860) #standard Gradio port
+    demo.launch(server_name="127.0.0.1", server_port=7860) #standard Gradio port
