@@ -23,35 +23,35 @@ unsloth_compiled_cache/
 .triton/
 .torch/
 
-# Entornos virtuales locales de Python
+# Python environments
 .venv/
 venv/
 ENV/
 env/
 
-# Archivos compilados y caché de Python
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# Archivos de configuración de PyCharm / VS Code
+# Editor config
 .idea/
 .vscode/
 
-# Control de versiones (Git)
+# Git
 .git/
 .gitignore
 
-# Archivos de entorno sensibles (contraseñas, claves API)
+# Secret
 .env
 .env.local
 
-# Archivos de registro y caché del sistema
+# Logs
 *.log
 .DS_Store
 Thumbs.db
 
-# Tu propio Dockerfile no necesita copiarse dentro del contenedor
+# Docker
 Dockerfile
 .dockerignore
