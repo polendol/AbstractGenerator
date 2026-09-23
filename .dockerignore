@@ -1,0 +1,57 @@
+# Fine-Tuning Checkpoints & Output Artifacts
+outputs/
+checkpoint-*/
+adapter_model/
+lora_model/
+*.bin
+*.pt
+*.pth
+*.safetensors
+
+# Training and testing
+Training.py
+TrainingMyDataset.py
+Test_FT_model.py
+
+# Private dataset
+abstracts.jsonl
+
+# Unsloth & PyTorch Caches
+unsloth/
+unsloth_compiled_cache/
+.cache/
+.triton/
+.torch/
+
+# Entornos virtuales locales de Python
+.venv/
+venv/
+ENV/
+env/
+
+# Archivos compilados y caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de configuración de PyCharm / VS Code
+.idea/
+.vscode/
+
+# Control de versiones (Git)
+.git/
+.gitignore
+
+# Archivos de entorno sensibles (contraseñas, claves API)
+.env
+.env.local
+
+# Archivos de registro y caché del sistema
+*.log
+.DS_Store
+Thumbs.db
+
+# Tu propio Dockerfile no necesita copiarse dentro del contenedor
+Dockerfile
+.dockerignore
