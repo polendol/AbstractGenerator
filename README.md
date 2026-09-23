@@ -20,6 +20,26 @@ must be included in the abstract. It is designed to work uniquely with abstracts
 
 *Test_FT_model.py file is a test file for the first fine-tuning of the model. It is not to be used as abstract generator. 
 
+
+## Docker
+
+## Requirements
+1. Docker & Docker Compose: Installed and running (Docker Desktop for Windows/macOS or Docker Engine on Linux).
+2. NVIDIA GPU: An NVIDIA graphics card with up-to-date drivers.
+3. NVIDIA Container Toolkit: Required on Linux/WSL2 so Docker can pass GPU access to the container (--gpus all).
+4. Hardware: Minimum 16 GB RAM (32 GB recommended), 6 GB+ VRAM on your NVIDIA GPU, at least 15 GB free disk space for the CUDA base image, PyTorch, and model checkpoints.
+
+## How it works
+
+1. Multi-Stage Build:
+Builder (nvidia/cuda:12.6.3-devel-ubuntu24.04): Compiles dependencies and sets up the Python virtual environment with build tools (gcc, build-essential, git).
+Runtime (nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04): Copies only the compiled virtual environment, leaving behind gigabytes of unnecessary C++ compilers to keep the final image as lean as possible.
+2. Security: Runs as a non-root user (appuser with UID 1001).
+3. Hugging Face Cache: Uses /home/appuser/.cache/huggingface (HF_HOME) to store downloaded models persistently across runs when mounted.
+4. Gradio Web Interface: Listens on port 7860 bound to 0.0.0.
+5. Step-by-step: to run the container: `docker run --gpus all -p 7860:7860 -v hf_cache:/home/appuser/.cache/huggingface abstract-generator`
+
+## Local
 ## Requirements
 - Python 3.8+
 - gradio
@@ -66,6 +86,8 @@ Generates an academic abstract related to the introduced titles which includes a
 - `abstracts.jsonl` — private abstract database used for personalization
 - `requirements.txt` — Python dependencies
 - `README.md` — this file
+- `Dockerfile`
+- `.dockerignore`
 
 
 ## Notes
