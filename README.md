@@ -37,7 +37,8 @@ Runtime (nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04): Copies only the compiled
 2. Security: Runs as a non-root user (appuser with UID 1001).
 3. Hugging Face Cache: Uses /home/appuser/.cache/huggingface (HF_HOME) to store downloaded models persistently across runs when mounted.
 4. Gradio Web Interface: Listens on port 7860 bound to 0.0.0.
-5. Step-by-step: to run the container: `docker run --gpus all -p 7860:7860 -v hf_cache:/home/appuser/.cache/huggingface abstract-generator`
+5. Step-by-step: to build the container, run `docker build -t abstract-generator .` to run the container: `docker run --gpus all -p 7860:7860 -v hf_cache:/home/appuser/.cache/huggingface abstract-generator`. Then open `http://localhost:7860`
+6. See How it works section in Local section below for specifics on how the program and output details
 
 ## Local
 ## Requirements
