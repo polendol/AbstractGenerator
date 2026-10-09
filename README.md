@@ -149,13 +149,10 @@ Generates an academic abstract related to the introduced titles which includes a
 
 ## File Structure
 
-- `outputs/` — generated during Unsloth fine-tuning (checkpoints, logs)
-- `unsloth/`, `unsloth_compiled_cache/` — Unsloth internal cache directories
 - `AbstractGenerator.py` — main program, run this to launch the app
 - `Training.py` — first fine-tuning stage on gfissore/arxiv-abstracts-2021 dataset
 - `TrainingMyDataset.py` — second fine-tuning stage on private abstracts
 - `Test_FT_model.py` — test script for validating the first fine-tuned model (not for end use)
-- `abstracts.jsonl` — private abstract database used for personalization
 - `requirements.txt` — Python dependencies
 - `README.md` — this file
 - `Dockerfile`

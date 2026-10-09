@@ -6,7 +6,7 @@ warnings.filterwarnings("ignore", category=FutureWarning) #warnigns are not disp
 
 # load tuned model
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name = "unsloth/Llama-3.2-1B-Instruct-bnb-4bit-lora_private_abstracts",
+    model_name = "llama-3.2-1b-private-abstracts-lora",
     max_seq_length = 1024,
     load_in_4bit = True,
 )
