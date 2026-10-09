@@ -2,11 +2,14 @@ import gradio as gr
 from unsloth import FastLanguageModel
 import torch
 import warnings
+import os
 warnings.filterwarnings("ignore", category=FutureWarning) #warnigns are not displayed anymore
 
 # load tuned model
+MODEL_NAME = os.environ.get("MODEL_PATH", "unsloth/Llama-3.2-1B-Instruct-bnb-4bit-lora_private_abstracts")
+
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name = "llama-3.2-1b-private-abstracts-lora",
+    model_name = MODEL_NAME,
     max_seq_length = 1024,
     load_in_4bit = True,
 )
@@ -40,7 +43,8 @@ def generate_abstract(title, keywords):
 
 # Gradio UI
 with gr.Blocks(title="Academic Abstract Generator") as demo:
-    gr.Markdown("AI Research Abstract Generator")
+    gr.Markdown("# AI Research Abstract Generator")
+    gr.Markdown("**Built with Llama**")
     with gr.Row():
         with gr.Column():
             title_input = gr.Textbox(label="Research Title", placeholder="Enter your paper title...")
@@ -51,7 +55,14 @@ with gr.Blocks(title="Academic Abstract Generator") as demo:
 
     submit_btn.click(fn=generate_abstract, inputs=[title_input, keywords_input], outputs=output_text)
 
+    gr.Markdown(
+        "Fine-tuned from Llama 3.2 1B Instruct. "
+        "Llama 3.2 is licensed under the "
+        "[Llama 3.2 Community License](https://www.llama.com/llama3_2/license/), "
+        "Copyright © Meta Platforms, Inc. All Rights Reserved. "
+        "Outputs are generated text and may contain invented claims; "
+        "they are not real research."
+    )
 
-# Launch (server_name="0.0.0.0" is required for Docker)
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0", server_port=7860) #standard Gradio port
+    demo.launch(server_name="0.0.0.0", server_port=7860)

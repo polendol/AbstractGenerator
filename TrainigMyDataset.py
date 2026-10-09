@@ -6,7 +6,7 @@ from transformers import TrainingArguments, AutoTokenizer
 
 # Tokenizer and model
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name = "llama-3.2-1b-abstracts-lora",
+    model_name = "unsloth/Llama-3.2-1B-Instruct-bnb-4bit-lora_abstracts",
     max_seq_length = 1024,
     load_in_4bit = True,
 )
@@ -80,5 +80,5 @@ trainer.train()
 #Loss < 1.0: For a 1B model on complex text, this usually means it's starting to memorize specific papers rather than learning "how to write.
 
 # New model and tokenizer saved
-model.save_pretrained("llama-3.2-1b-private-abstracts-lora")
-tokenizer.save_pretrained("llama-3.2-1b-private-abstracts-lora")
+model.save_pretrained("unsloth/Llama-3.2-1B-Instruct-bnb-4bit-lora_private_abstracts")
+tokenizer.save_pretrained("unsloth/Llama-3.2-1B-Instruct-bnb-4bit-lora_private_abstracts")

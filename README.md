@@ -1,6 +1,6 @@
 # AI Abstract Generator
 
-Note: this repository contains training code only. The base model is subject to the Llama 3.2 Community License.ç
+Note: this repository contains training code only. Model weights are not included. The base model is subject to the Llama 3.2 Community License.
 
 ## Description
 AI Abstract Generator aims to facilitate abstract generation for researchers who have to produce several variations of 

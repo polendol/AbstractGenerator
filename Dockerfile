@@ -30,17 +30,21 @@ ENV PATH="/opt/venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
-    GRADIO_SERVER_NAME="0.0.0.0"
+    GRADIO_SERVER_NAME="0.0.0.0" \
+    HF_HOME=/home/appuser/.cache/huggingface \
+    MODEL_PATH=/app/adapter
 
 WORKDIR /app
 
 #not root
 RUN useradd --create-home --uid 1001 appuser \
- && mkdir -p /home/appuser/.cache/huggingface \
+ && mkdir -p /home/appuser/.cache/huggingface /app/adapter \
  && chown -R appuser:appuser /app /home/appuser/.cache
 USER appuser
 
-COPY --chown=appuser:appuser . .
+# Copy ONLY what the app needs. No models, no data, no private files.
+COPY --chown=appuser:appuser AbstractGenerator.py .
+COPY --chown=appuser:appuser LICENSE THIRD_PARTY_NOTICES.md ./
 
 #Gradio cache
 ENV HF_HOME=/home/appuser/.cache/huggingface
