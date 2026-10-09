@@ -77,5 +77,5 @@ trainer.train()
 #Loss < 1.0: For a 1B model on complex text, this usually means it's starting to memorize specific papers rather than learning "how to write.
 
 # New model and tokenizer saved
-model.save_pretrained("unsloth/Llama-3.2-1B-Instruct-bnb-4bit-lora_abstracts")
-tokenizer.save_pretrained("unsloth/Llama-3.2-1B-Instruct-bnb-4bit-lora_abstracts")
+model.save_pretrained("llama-3.2-1b-abstracts-lora")
+tokenizer.save_pretrained("llama-3.2-1b-abstracts-lora")

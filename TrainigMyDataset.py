@@ -6,7 +6,7 @@ from transformers import TrainingArguments, AutoTokenizer
 
 # Tokenizer and model
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name = "unsloth/Llama-3.2-1B-Instruct-bnb-4bit-lora_abstracts",
+    model_name = "llama-3.2-1b-abstracts-lora",
     max_seq_length = 1024,
     load_in_4bit = True,
 )
@@ -22,7 +22,7 @@ model = FastLanguageModel.get_peft_model(
     lora_alpha = 16,
     lora_dropout = 0)
 
-# load the peS2o dataset, a subset only
+# load the dataset, a subset only
 dataset = load_dataset("json", data_files="abstracts.jsonl", split="train")
 #print(next(iter(dataset)).keys()) useful to make sure what are the names of the columns you need
 
@@ -80,5 +80,5 @@ trainer.train()
 #Loss < 1.0: For a 1B model on complex text, this usually means it's starting to memorize specific papers rather than learning "how to write.
 
 # New model and tokenizer saved
-model.save_pretrained("unsloth/Llama-3.2-1B-Instruct-bnb-4bit-lora_private_abstracts")
-tokenizer.save_pretrained("unsloth/Llama-3.2-1B-Instruct-bnb-4bit-lora_private_abstracts")
+model.save_pretrained("llama-3.2-1b-private-abstracts-lora")
+tokenizer.save_pretrained("llama-3.2-1b-private-abstracts-lora")

@@ -1,5 +1,7 @@
 # AI Abstract Generator
 
+Note: this repository contains training code only. The base model is subject to the Llama 3.2 Community License.ç
+
 ## Description
 AI Abstract Generator aims to facilitate abstract generation for researchers who have to produce several variations of 
 the same abstract (e.g. the same study presented in different events). 
@@ -51,7 +53,73 @@ Runtime (nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04): Copies only the compiled
 - "unsloth/Llama-3.2-1B-Instruct-bnb-4bit"
 - Model: `unsloth/Llama-3.2-1B-Instruct-bnb-4bit-lora_private_abstracts`
 - 
+## License
+
+The code in this repository is released under the [MIT License](LICENSE).
+
+### Third-party licenses
+This project builds on other work, each under its own terms:
+
+| Component | License |
+|---|---|
+| Base model: [Llama 3.2 1B Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct) | [Llama 3.2 Community License](https://huggingface.co/meta-llama/Llama-3.2-1B/blob/main/LICENSE.txt) |
+| Dataset: [gfissore/arxiv-abstracts-2021](https://huggingface.co/datasets/gfissore/arxiv-abstracts-2021) | CC0 1.0 (public domain) |
+| [Unsloth](https://github.com/unslothai/unsloth), [TRL](https://github.com/huggingface/trl), [Transformers](https://github.com/huggingface/transformers) | See each project's repository |
+
+Built with Llama.
+
+This repository does not include model weights. To use the base model you
+must accept Meta's license on Hugging Face.
+- 
 ## Training
+
+This model is a LoRA adapter for [Llama-3.2-1B-Instruct](https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct),
+fine-tuned with [Unsloth](https://github.com/unslothai/unsloth) and TRL's `SFTTrainer`.
+Task: given a research paper title, generate an academic abstract.
+
+### Data
+- **Dataset:** [gfissore/arxiv-abstracts-2021](https://huggingface.co/datasets/gfissore/arxiv-abstracts-2021)
+  (arXiv titles and abstracts up to the end of 2021, CC0 1.0).
+- **Subset:** the first 5,000 records of the `train` split, streamed (not shuffled).
+- **Format:** Llama 3 chat template with three messages:
+  - system: `You are a professional academic researcher.`
+  - user: `Expand the following research title into a sophisticated academic abstract.` followed by `Title: <title>`
+  - assistant: the original abstract
+
+### Configuration
+
+| Setting | Value |
+|---|---|
+| Base model | `unsloth/Llama-3.2-1B-Instruct-bnb-4bit` (4-bit quantized) |
+| Method | QLoRA (4-bit base + LoRA adapters) |
+| Max sequence length | 1024 |
+| LoRA rank / alpha / dropout | 16 / 16 / 0 |
+| LoRA target modules | q, k, v, o, gate, up, down projections |
+| Batch size | 1 per device × 8 gradient accumulation = 8 effective |
+| Training steps | 300 (about 2,400 examples seen) |
+| Learning rate | 2e-4, linear schedule, 10 warmup steps |
+| Optimizer | `paged_adamw_8bit`, weight decay 0.01 |
+| Precision | bf16, gradient checkpointing |
+| Hardware | [GPU model and VRAM] |
+
+### Results
+- Average training loss: **2.25**
+- Training time: about 14.6 minutes (878 s), about 2.7 samples/s
+- No held-out evaluation was run, so there are no validation metrics.
+
+### Reproducing
+
+```bash
+pip install unsloth trl transformers datasets torch  
+python train.py
+```
+The script saves the LoRA adapter only (no merged weights).
+
+### Limitations
+- Trained on a small, unshuffled subset (5,000 records, about half of them seen), for a short run.
+- Loss is computed over the whole formatted conversation, not only the abstract.
+- Outputs are plausible-sounding text, not real research. They can contain invented
+  claims, methods, and results, and should not be presented as genuine abstracts.
 
 
 ## Installation

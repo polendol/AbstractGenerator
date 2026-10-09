@@ -142,6 +142,7 @@ cython_debug/
 
 # Unsloth / training artifacts
 unsloth_compiled_cache/
+unsloth/
 outputs/
 lora_model/
 merged_model*/
