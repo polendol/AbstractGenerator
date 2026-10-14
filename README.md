@@ -18,11 +18,11 @@
 | Training and inference stay on your machine | Two-stage fine-tuning imitates your own writing | Mandatory keywords are part of the prompt | GPU-ready multi-stage Docker image |
 
 <img src="demo3.png" alt="AI Abstract Generator web interface" width="800">
----
+
 
 ## 💡 Overview
 
-A side project built in my spare time to answer a **real need**: researchers often have to write several versions of the same abstract (the same study presented at different events), each with its own required keywords.
+A side project built in my spare time to answer my **real need**: researchers often have to write several versions of the same abstract (the same study presented at different events), each with its own required keywords. I wanted to make the code work for me and use all my previous abstracts to learn about my style and preferences.
 
 A 1B-parameter, 4-bit Llama 3.2 Instruct model was fine-tuned in two stages with [Unsloth](https://github.com/unslothai/unsloth) on a local GPU:
 
