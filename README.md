@@ -17,8 +17,7 @@
 |---|---|---|---|
 | Training and inference stay on your machine | Two-stage fine-tuning imitates your own writing | Mandatory keywords are part of the prompt | GPU-ready multi-stage Docker image |
 
-<!-- Add a screenshot of the web interface here, e.g. <img src="demo.png" alt="AI Abstract Generator web interface" width="800"> -->
-
+<img src="demo3.png" alt="AI Abstract Generator web interface" width="800">
 ---
 
 ## 💡 Overview
