@@ -19,7 +19,7 @@ RUN pip install --no-cache-dir \
 FROM nvidia/cuda:12.6.3-cudnn-runtime-ubuntu24.04
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-      python3.12 \
+      python3.12 gcc libc6-dev python3.12-dev \
  && rm -rf /var/lib/apt/lists/*
 
 #copy the environment without unnecessary compilers
