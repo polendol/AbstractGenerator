@@ -344,6 +344,3 @@ If you build on the underlying work, please cite:
 **`Paulina Olender`** — NLP / Machine Learning
 
 Feedback, issues and suggestions are welcome. If this tool is useful to you, a ⭐ is appreciated.
-- the new abstract size is limited to 512 tokens to imitate the standard length of an academic abstract
-- the temperature si set to 0.6 to allow for some creativity and avoid repetition, as academic texts tend to be highly formulaic
-- repetition penalty applied between 1.1. and 1.2 to avoid bad grammar and strange synonyms
