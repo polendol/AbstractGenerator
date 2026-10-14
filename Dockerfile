@@ -44,7 +44,7 @@ USER appuser
 
 # Copy ONLY what the app needs. No models, no data, no private files.
 COPY --chown=appuser:appuser AbstractGenerator.py .
-COPY --chown=appuser:appuser LICENSE THIRD_PARTY_NOTICES.md ./
+COPY --chown=appuser:appuser LICENSE ThirdPartyNotices.md ./
 
 #Gradio cache
 ENV HF_HOME=/home/appuser/.cache/huggingface
