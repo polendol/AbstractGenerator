@@ -22,7 +22,7 @@ model = FastLanguageModel.get_peft_model(
     lora_alpha = 16,
     lora_dropout = 0)
 
-# load the peS2o dataset, a subset only
+# load the dataset, a subset only
 dataset = load_dataset("gfissore/arxiv-abstracts-2021", split="train", streaming=True) #this is mandatory to upload just a subset, not the whole dataset
 #print(next(iter(dataset)).keys()) useful to make sure what are the names of the columns you need
 
